@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  web:
+    networks:
+      - docker-db
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    container_name: modelagem
+    environment:
+      ENV: ${ENV}
+      
+    volumes:
+      - ../ :/home/app/web
+    command: flask run --host=0.0.0.0 --port=80 --debug
+    ports:
+      - 80:80
+
+networks:
+  docker-db:
+    external: true
